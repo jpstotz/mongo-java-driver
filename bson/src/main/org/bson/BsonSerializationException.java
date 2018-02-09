@@ -24,6 +24,9 @@ package org.bson;
 public class BsonSerializationException extends BSONException {
     private static final long serialVersionUID = -5214580094005440780L;
 
+    public static final int ERRORCODE_BSON_DOCUMENT_SIZE_TOO_SMALL = 1;
+    public static final int ERRORCODE_BSON_DOCUMENT_SIZE_TOO_LARGE = 2;
+
     /**
      * Construct a new instance.
      *
@@ -32,4 +35,13 @@ public class BsonSerializationException extends BSONException {
     public BsonSerializationException(final String message) {
         super(message);
     }
+
+    /**
+     * @param errorCode The error code.
+     * @param msg       The error message.
+     */
+    public BsonSerializationException(final int errorCode, final String msg) {
+        super(errorCode, msg);
+    }
+
 }

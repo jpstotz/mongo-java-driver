@@ -60,6 +60,8 @@ public class BsonBinaryWriterTest {
             fail();
         } catch (BsonSerializationException e) {
             assertEquals("Document size of 1037 is larger than maximum of 1024.", e.getMessage());
+            assertEquals(BsonSerializationException.ERRORCODE_BSON_DOCUMENT_SIZE_TOO_LARGE,
+                    e.getErrorCode().intValue());
         }
     }
 
@@ -73,6 +75,8 @@ public class BsonBinaryWriterTest {
             writer.writeEndDocument();
         } catch (BsonSerializationException e) {
             assertEquals("Document size of 22 is larger than maximum of 10.", e.getMessage());
+            assertEquals(BsonSerializationException.ERRORCODE_BSON_DOCUMENT_SIZE_TOO_LARGE,
+                    e.getErrorCode().intValue());
         }
     }
 
@@ -740,6 +744,8 @@ public class BsonBinaryWriterTest {
                 fail("Pipe is expected to fail with document size is < 5");
             } catch (BsonSerializationException e) {
                 // expected
+                assertEquals(BsonSerializationException.ERRORCODE_BSON_DOCUMENT_SIZE_TOO_SMALL,
+                        e.getErrorCode().intValue());
             }
             finally {
                 reader.close();

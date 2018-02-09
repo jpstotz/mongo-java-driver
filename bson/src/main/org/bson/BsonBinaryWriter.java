@@ -324,7 +324,8 @@ public class BsonBinaryWriter extends AbstractBsonWriter {
             BsonInput bsonInput = binaryReader.getBsonInput();
             int size = bsonInput.readInt32();
             if (size < 5) {
-                throw new BsonSerializationException("Document size must be at least 5");
+                throw new BsonSerializationException(BsonSerializationException.ERRORCODE_BSON_DOCUMENT_SIZE_TOO_SMALL,
+                    "Document size must be at least 5");
             }
             int pipedDocumentStartPosition = bsonOutput.getPosition();
             bsonOutput.writeInt32(size);
@@ -415,8 +416,8 @@ public class BsonBinaryWriter extends AbstractBsonWriter {
 
     private void validateSize(final int size) {
         if (size > maxDocumentSizeStack.peek()) {
-            throw new BsonSerializationException(format("Document size of %d is larger than maximum of %d.", size,
-                    maxDocumentSizeStack.peek()));
+            throw new BsonSerializationException(BsonSerializationException.ERRORCODE_BSON_DOCUMENT_SIZE_TOO_LARGE,
+                format("Document size of %d is larger than maximum of %d.", size, maxDocumentSizeStack.peek()));
         }
     }
 
